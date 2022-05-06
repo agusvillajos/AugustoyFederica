@@ -1,12 +1,16 @@
 if __name__=="__main__":
     mispalabras = open("listado.txt", "r", encoding="utf8")
+    print(">>> FILTRANDO PALABRAS DE 5 LETRAS")
     listita=[]
     for i in range(1290):
         line = mispalabras.readline()
         if len(line)== 6:
             listita.append(line.rstrip())
     monto = len(listita)
+   
     print(listita)
-    
+
     print(monto)
+    print(">>> OPERACION COMPLETADA CON EXITO")
+    print(f"SE ENCONTRARON {len(listita)} PALABRAS DE 5 LETRAS")
 
