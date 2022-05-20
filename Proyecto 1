@@ -2,10 +2,13 @@ if __name__=="__main__":
     mispalabras = open("listado.txt", "r", encoding="utf8")
     print(">>> FILTRANDO PALABRAS DE 5 LETRAS")
     listita=[]
+    todas = []    
     for i in range(1290):
         line = mispalabras.readline()
         if len(line)== 6:
-            listita.append(line.rstrip())
+            listita.append(line.rstrip("\n"))
+        todas.append(line.rstrip("\n"))
+        
     monto = len(listita)
    
     print(listita)
@@ -14,16 +17,20 @@ if __name__=="__main__":
     print(">>> OPERACION COMPLETADA CON EXITO")
     print(f"SE ENCONTRARON {len(listita)} PALABRAS DE 5 LETRAS")
 
-    import random
-aleatorio = random.chioce(listita)
+
+
+import random
+aleatorio = random.choice(listita)
 
 palabra = input(">>> INTRODUCIR PALABRA DE 5 LETRAS:")
 
 while palabra not in listita: 
-    if palabra not in mispalabras : 
+    if palabra not in todas: 
         print("la palabra es inexsitente")
     if len(palabra) !=5:
         print("la palabra no tiene cinco letras")
     if palabra.isalpha() == False:
         print("caracter no valido")
-        palabra = input(">>> INTRODUCIR PALABRA DE 5 LETRAS:")
+    palabra = input(">>> INTRODUCIR PALABRA DE 5 LETRAS:")
+        
+    
