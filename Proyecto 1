@@ -1,36 +1,54 @@
-if __name__=="__main__":
+import colorama
+import random
+from colorama import Style, Fore
+import os
+
+if __name__ == "__main__":
     mispalabras = open("listado.txt", "r", encoding="utf8")
     print(">>> FILTRANDO PALABRAS DE 5 LETRAS")
-    listita=[]
-    todas = []    
+    listita = []
+    todas = []
     for i in range(1290):
         line = mispalabras.readline()
-        if len(line)== 6:
-            listita.append(line.rstrip("\n"))
-        todas.append(line.rstrip("\n"))
-        
+        if len(line) == 6:
+            listita.append(line.rstrip("\n").upper())
+        todas.append(line.rstrip("\n").upper())
+
     monto = len(listita)
-   
+
     print(listita)
 
     print(monto)
-    print(">>> OPERACION COMPLETADA CON EXITO")
-    print(f"SE ENCONTRARON {len(listita)} PALABRAS DE 5 LETRAS")
+    print(">>> OPERACION COMPLETADA CON EXITO\n")
+    print(f"SE ENCONTRARON {len(listita)} PALABRAS DE 5 LETRAS\n")
 
+    aleatorio = random.choice(listita)
+    print("BIENVENIDO A WORDLE")
 
+    pruebas = 0
+    while pruebas != 5:
+        palabra = input("\n>>> INTRODUCIR PALABRA DE 5 LETRAS: \n").upper()
+        while palabra not in listita:
+            if palabra not in todas:
+                print("la palabra es inexsitente")
+            if len(palabra) != 5:
+                print("la palabra no tiene cinco letras")
+            if palabra.isalpha() == False:
+                print("caracter no valido")
+            palabra = input(">>> INTRODUCIR PALABRA DE 5 LETRAS: \n").upper()
 
-import random
-aleatorio = random.choice(listita)
+        for z in range(5):
+            if palabra[z] == aleatorio[z]:
+                print(Fore.GREEN + palabra[z] + Style.RESET_ALL, end="")
+            elif palabra[z] in aleatorio:
+                print(Fore.YELLOW + palabra[z] + Style.RESET_ALL, end="")
+            elif palabra[z] not in aleatorio:
+                print(Fore.LIGHTBLACK_EX + palabra[z] + Style.RESET_ALL, end="")
+        if palabra == aleatorio:
+            break
+        pruebas += 1
 
-palabra = input(">>> INTRODUCIR PALABRA DE 5 LETRAS:")
-
-while palabra not in listita: 
-    if palabra not in todas: 
-        print("la palabra es inexsitente")
-    if len(palabra) !=5:
-        print("la palabra no tiene cinco letras")
-    if palabra.isalpha() == False:
-        print("caracter no valido")
-    palabra = input(">>> INTRODUCIR PALABRA DE 5 LETRAS:")
-        
-    
+    if palabra != aleatorio:
+        print(f"\nPERDISTE, LA PALABRA CORRECTA ERA: {aleatorio}")
+    else:
+        print("GANASTE")
